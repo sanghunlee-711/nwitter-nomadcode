@@ -22,6 +22,7 @@ const Nweet = ({nweetObj, isOwner}) => {
             text: newNweet,
         })
         setEditing(false);
+        console.log("newNweet",newNweet)
     }
 
     const onChange = (e)=>{
@@ -38,6 +39,8 @@ const Nweet = ({nweetObj, isOwner}) => {
             </form>
                 <button onClick={toggleEditing}>Cancel</button> 
             </>) : (<> <h4>{nweetObj.text}</h4>
+            {nweetObj.attachmentUrl}
+            {nweetObj.attachmentUrl && (<img alt = "Hello" src = {nweetObj.attachmentUrl} width="50px" height="50px"/>)}
             {isOwner && (
                 <>
                     <button onClick={onDeleteClick}>Delete Nweet</button>

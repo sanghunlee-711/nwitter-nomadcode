@@ -26,9 +26,9 @@ function App() {
   return (
     <div>
       {init ? <AppRouter userObj = {userObj} isLoggedIn ={Boolean(userObj)}/> : "Initializing...."}
-      <footer>
+      {/* <footer>
         &copy; By Sanghun with Nomad Code {new Date().getFullYear()}
-      </footer>
+      </footer> */}
     </div>
   );
 }
