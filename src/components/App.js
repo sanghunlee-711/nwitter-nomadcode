@@ -6,17 +6,14 @@ import {authService} from 'myBase';
 
 function App() {
   const [init, setInit] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
   //https://firebase.google.com/docs/reference/js/firebase.auth.Auth#onauthstatechanged
   useEffect(()=>{
     //keep track state of auth
     authService.onAuthStateChanged((user)=> {
       if(user){
-        setIsLoggedIn(true);
         setUserObj(user)
-      }else{
-        setIsLoggedIn(false);
       }
       setInit(true)
     }
@@ -24,9 +21,11 @@ function App() {
     );
   },[])
 
+
+  //Boolean(userObj) -> check userObj state so that delete isLoggedIn State
   return (
     <div>
-      {init ? <AppRouter userObj = {userObj} isLoggedIn ={isLoggedIn}/> : "Initializing...."}
+      {init ? <AppRouter userObj = {userObj} isLoggedIn ={Boolean(userObj)}/> : "Initializing...."}
       <footer>
         &copy; By Sanghun with Nomad Code {new Date().getFullYear()}
       </footer>

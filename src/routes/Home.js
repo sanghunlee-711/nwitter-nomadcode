@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import {dbService} from 'myBase'
+import Nweet from 'components/Nweet'
 const Home = ({userObj}) => { 
     const [nweet, setNeweet] = useState("");
     const [nweets, setNweets] = useState([]);
@@ -18,8 +19,9 @@ const Home = ({userObj}) => {
     // }
     useEffect(()=>{ 
         // getNweets();
+        //collection을 정하는 것은 중요함.
         //snap shot for realtime db check and show
-        dbService.collection("nweets").onSnapshot(snapshot => {
+        dbService.collection("nweets").onSnapshot((snapshot) => {
             const nweetArray = snapshot.docs.map(doc => ({id: doc.id, ...doc.data(),}))
             setNweets(nweetArray);
             console.log(nweetArray)
@@ -33,6 +35,7 @@ const Home = ({userObj}) => {
             //same key and value at nweet
             text:nweet,
             createdAt: Date.now(),
+            creatorId: userObj.uid,
         })
         setNeweet("")
     }
@@ -51,7 +54,7 @@ const Home = ({userObj}) => {
         </form>
 
         <div>
-            {nweets?.map(nweet => <div key = {nweet.id}><h4>{nweet.text}</h4></div>)}
+            {nweets?.map(nweet => <Nweet key = {nweet.id} nweetObj = {nweet} isOwner={nweet.creatorId === userObj.uid}/>)}
         </div>
     </div>) }
 
