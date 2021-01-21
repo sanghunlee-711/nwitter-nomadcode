@@ -21,6 +21,8 @@ function App() {
         });
         //2
         // setUserObj(user);
+      }else{
+        setUserObj(null);
       }
       setInit(true);
     });
